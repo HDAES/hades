@@ -1,0 +1,202 @@
+
+.header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height:60px;
+    background-color: var(--header-background-color);
+    box-shadow: 0 0 14px 2px var(--box-shadow-color);
+    opacity: .8;
+    z-index: 99;
+    .container{
+        display: flex;
+        margin: 0 auto;
+        height: 60px;
+        width: var(--default-width);
+        .logo-link{
+            display: flex;
+            align-items: center;
+            height: 60px;
+            cursor: pointer;
+            .logo{
+                height: 50px;
+            }
+            .url{
+                font-size:30px;
+                font-family: 'Damion';
+                padding: 0 10px 0 15px;
+                color: var(--header-logo-color); 
+            }
+        }
+        .tabs{
+            display:flex;
+            margin:0 20px;
+            overflow: hidden;
+            .tab{
+                display:block;
+                line-height: 60px;
+                padding: 0 10px;
+                cursor: pointer;
+                position: relative;
+                font-size: 14px;
+                font-weight: bold;
+                color: var(--text-color);
+            }
+            .tab::after {
+                content: "";
+                width: 0;
+                height: 2px;
+                background-color:var(--header-logo-color);
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                transition: width 0.4s;
+                }
+            .tab:hover {
+                color: var(--header-logo-color);
+            }
+            .tab:hover::after {
+                width: 100%;
+            }
+            .tabs_active{
+                color: var(--header-logo-color);
+            }
+        }
+        .search{
+            display:flex;
+            align-items: center;
+            margin-left:auto;
+            .ant-input{
+                background-color: var(--header-background-color);
+                color:var(--text-color);   
+            }
+            .ant-input-search-icon{
+                color:var(--text-color)
+            }
+        }
+    }
+}
+.footer{
+    background-color: var(--header-background-color);
+    overflow: hidden;
+    .container{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        height:80px;
+        color: #555;
+        width: var(--default-width);
+        a{
+            color:#555;
+            padding:0 5px;
+        }
+    }
+}
+.rightbar{
+    position: fixed;
+    right: 10px;
+    bottom: 90px;
+    z-index: 999;
+    .card-item,.card-item-last{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 36px;
+        width: 36px;
+        cursor: pointer;
+        box-sizing: border-box;
+        margin-top: 1px;
+        background-color: var(--header-background-color);
+        overflow: hidden;
+        transition: all .3s ease;
+        i{
+            font-size: 18px;
+            color: var(--text-color);
+        }
+    }
+    .card-item:hover{
+        background-color: var(--card-hover-color);
+    }
+}
+.voice{
+    position: fixed;
+    top: 70px;
+    right:0px;
+    padding: 16px;
+    writing-mode: vertical-rl;
+    font-family:Damion,cursive,Helvetica Neue For Number,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 16px;
+    user-select: text;
+    transition: all .3s ease;
+    color: var(--text-color);
+    .text{
+        max-height: 300px;
+    }
+    .source{
+        position: absolute;
+        left: -10px;
+        bottom: -50%;
+        height: max-content;
+    }
+}
+.main{
+    height: 2000px;
+    padding-top: 60px;
+    background-color: var(--content-color);
+    overflow-x: hidden;
+    .container{
+        margin: 0 auto;
+        width: var(--default-width);
+    }
+}
+
+// 心
+.heart{
+    width: 10px;
+    height: 10px;
+    position: fixed;
+    z-index: 999;
+    animation: myfirst .5s ease-in-out forwards;
+    &:after,
+    &:before {
+        content: "";
+        width: inherit;
+        height: inherit;
+        background: inherit;
+        border-radius: 50%;
+        position: absolute;
+    }
+    &:after {
+        top: -5px;
+    }
+    &:before {
+        left: -5px;
+    }
+    
+    @keyframes myfirst
+    {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) scale(1);
+        }
+        60%  {
+            opacity: 1;
+            transform: translateY(-20px) rotate(45deg) scale(1.5);
+        }
+        100%{
+            opacity: 0;
+            transform: translateY(-20px) rotate(45deg) scale(1.5);
+        }
+    }
+    
+}
+
+
+
+
+
+
