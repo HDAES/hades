@@ -79,8 +79,12 @@
     }
 }
 .footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
     background-color: var(--header-background-color);
     overflow: hidden;
+    opacity: .8;
     .container{
         display:flex;
         flex-direction: column;
@@ -144,13 +148,14 @@
     }
 }
 .main{
-    height: 2000px;
+    position: relative;
     padding-top: 60px;
-    background-color: var(--content-color);
     overflow-x: hidden;
     .container{
         margin: 0 auto;
         width: var(--default-width);
+        z-index: 999;
+        z-index: 9;
     }
 }
 
@@ -195,6 +200,15 @@
     
 }
 
+.background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: var(--content-color);
+}
 
 
 

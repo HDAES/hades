@@ -8,8 +8,8 @@ import Loading from '../Loading'
 import Click from './ClickHeart'
 import Live2d from './live2d'
 import './layout.less'
-
 import { Scrollbars } from 'react-custom-scrollbars'
+import ParticlesBg from './ParticlesBg'
 
 export default ({children}) =>{
 
@@ -47,10 +47,12 @@ export default ({children}) =>{
         }
     }
 
+  
     // 改变主题
     const MemoChangeTheme = useMemo(()=>()=>{ setTheme((e)=>!e)},[loadingStatus])
     // 回到顶部
     const MemoToTop = useMemo(() =>()=>{ScrollbarsRef.current.scrollToTop()},[loadingStatus])
+    
     return (
         <div className={theme?'light-theme':'dark-theme'}>
             {
@@ -59,6 +61,7 @@ export default ({children}) =>{
             <Scrollbars onScroll={onScroll} autoHide universal ref={ScrollbarsRef}>
                 <Header/>
                 <div className="main">
+                    
                     <div className="container">
                         {children}
                     </div>
@@ -69,6 +72,7 @@ export default ({children}) =>{
                 <Click/>
                 <Live2d/>
             </Scrollbars>
+            <ParticlesBg/>
         </div>
     )
 }

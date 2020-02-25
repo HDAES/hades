@@ -6,7 +6,7 @@ export default () => {
 
   return (
     <Layout>
-      
+       <h1 style={{paddingTop:200}}>网站正在建设中。。。。。。</h1>
     </Layout>
   )
 }
