@@ -3,11 +3,15 @@ import './layout.less'
 import { init } from 'ityped'
 
 class Voice extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
     componentDidMount(){
         const text = document.querySelector('#text')
-        init(text, { showCursor: false, disableBackTyping:true, strings: ['也罢就这样吧，淡看缘起缘落，有缘聚，无缘不见' ] })
+        init(text, { showCursor: false, disableBackTyping:true, strings: [this.props.say[0].text] })
         const source = document.querySelector('#source')
-        init(source, { showCursor: false, disableBackTyping:true, strings: ['—— 小染《—兔先森' ] })
+        init(source, { showCursor: false, disableBackTyping:true, strings: [this.props.say[0].author]})
       }
       render(){
         console.log(`${new Date()} >>>>>>>>>>>Voice render`)
@@ -18,7 +22,6 @@ class Voice extends Component {
             </div>
         )
       }
-   
 }
 
 export default memo(Voice)

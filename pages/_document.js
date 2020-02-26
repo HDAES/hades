@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <link data-n-head="true" rel="stylesheet" href="https://at.alicdn.com/t/font_1098415_r1xb63h27s.css" />
+          <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=OLN50TQTDt9XMMZUMrvBrDWMLGIcfy4D"></script>
           <script src="http://live2d.xl686.com/L2Dwidget.min.js"></script>
         </Head>
         <body>

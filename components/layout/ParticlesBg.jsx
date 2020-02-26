@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component,memo } from 'react'
 import dynamic from 'next/dynamic'
 import './layout.less'
 const ParticlesBg = dynamic(import('particles-bg'),{ ssr: false})
@@ -28,10 +28,11 @@ class Particles extends Component{
 
 
     render(){
+        console.log(`${new Date()} >>>>>>>>>>>ParticlesBg render`)
         const config = this.state.config
         return (
             <div className="background">
-                <ParticlesBg  type="custom" bg={true} config={config}/>
+                <ParticlesBg   type="custom" bg={true} config={config}/>
             </div>
         )
     }
@@ -39,4 +40,4 @@ class Particles extends Component{
 }
 
 
-export default Particles;
+export default memo(Particles);

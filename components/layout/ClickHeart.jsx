@@ -28,7 +28,9 @@ class Click extends Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('click');
+        window.removeEventListener('click',()=>{
+            console.log('取消监听事件')
+        });
         this.setState = (state, callback) => {
             return;
         }

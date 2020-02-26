@@ -23,7 +23,7 @@ _______              _    _          _____  ______  _____
         `)
     }
     render(){
-        console.log(`${new Date()} >>>>>>>>>>>Voice render`)
+        console.log(`${new Date()} >>>>>>>>>>>live2d render`)
         return (
             <div></div>
         )

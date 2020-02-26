@@ -11,7 +11,7 @@ import './layout.less'
 import { Scrollbars } from 'react-custom-scrollbars'
 import ParticlesBg from './ParticlesBg'
 
-export default ({children}) =>{
+export default ({children,indexData}) =>{
 
     const [loadingStatus,setLoadingStatus] = useState(false)
     const [showToTop,setShowToTop] = useState(false)
@@ -35,6 +35,9 @@ export default ({children}) =>{
             Router.events.off('routeChangeStart',setTrue)
             Router.events.off('routeChangeComplete',setFalse)
             Router.events.off('routeChangeError',setFalse)
+            window.removeEventListener('click',()=>{
+                console.log('取消监听事件')
+            });
         }
     },[loadingStatus])
     
@@ -67,12 +70,12 @@ export default ({children}) =>{
                     </div>
                 </div>
                 <Righrbar changeTheme={MemoChangeTheme} theme={theme} showToTop={showToTop} MemoToTop={MemoToTop}/>
-                <Voice/>
+                <Voice say={indexData.saying}/>
                 <Footer/>
                 <Click/>
                 <Live2d/>
+                
             </Scrollbars>
-            <ParticlesBg/>
         </div>
     )
 }

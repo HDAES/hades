@@ -9,8 +9,10 @@ export default memo(withRouter((router) => {
     const navlist = [{
         index: '/',
         name: '首页'
-    },
-    ]
+    },{
+        index: '/about',
+        name: '关于'
+    }]
     return (
         <div className="header">
             <div className="container">
