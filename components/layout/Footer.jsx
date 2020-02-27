@@ -1,6 +1,6 @@
 import { memo } from 'react'
 export default memo(() => {
-    console.log(`${new Date()} >>>>>>>>>>>footer render`)
+    //console.log(`${new Date()} >>>>>>>>>>>footer render`)
     return (
         <div className="footer">
             <div className="container">

@@ -1,3 +1,5 @@
+import axios from 'axios'
+import api from '../../lib/api'
 import Layout from '../../components/layout/Layout'
 import Me from './Me'
 import Map from './Map'
@@ -5,9 +7,9 @@ import Contacts from './Contacts '
 import Friend from './Friend'
 import { Avatar } from 'antd'
 
-export default () => {
+function about({say}){
     return (
-        <Layout>
+        <Layout saying={say.saying}>
             <div className="about">
                 <div className="avatar">
                     <Avatar size={68} icon="user" src="http://qiniu.xl686.com/avatar.png?v=0512" />
@@ -48,15 +50,31 @@ export default () => {
             justify-content: space-between;
         }
         .me-friend{
-            width: 700px;
+            width: var(--left-width);
         }
         .des-map{
-            width: 360px;
+            width: var(--right-width);
         }
         `}</style>
         </Layout>    
     )
 }
+
+// 异步获取数据
+about.getInitialProps  = async (ctx) =>{
+    let say = { }
+    //获取首页数据
+    await axios.get(api.saying).then( res =>{
+        if(res.status == 200 ){
+            console.log(res.data.data)
+            say = res.data.data
+        }
+    })
+
+    return { say }
+}
+
+export default about;
 
 
   

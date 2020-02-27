@@ -4,7 +4,7 @@ import Router, { withRouter } from 'next/router'
 import { Input } from 'antd'
 import './layout.less'
 export default memo(withRouter((router) => {
-    console.log(`${new Date()} >>>>>>>>>>>header render`)
+    //console.log(`${new Date()} >>>>>>>>>>>header render`)
     const routerIndex = router.route
     const navlist = [{
         index: '/',

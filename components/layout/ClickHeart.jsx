@@ -40,7 +40,7 @@ class Click extends Component {
         return `rgb(${random()}, ${random()}, ${random()})`
     }
     render() {
-        console.log(`${new Date()} >>>>>>>>>>>ClickHeart render`)
+        //console.log(`${new Date()} >>>>>>>>>>>ClickHeart render`)
         return <div>
             {
                 this.state.heart.map((item, index) => {

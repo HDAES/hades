@@ -28,7 +28,7 @@ class Particles extends Component{
 
 
     render(){
-        console.log(`${new Date()} >>>>>>>>>>>ParticlesBg render`)
+        //console.log(`${new Date()} >>>>>>>>>>>ParticlesBg render`)
         const config = this.state.config
         return (
             <div className="background">

@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import './layout.less'
 export default memo(({changeTheme,theme,showToTop,MemoToTop}) =>{
-    console.log(`${new Date()} >>>>>>>>>>>rightbar render`)
+    //console.log(`${new Date()} >>>>>>>>>>>rightbar render`)
 
     return (
         <div className="rightbar">

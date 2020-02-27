@@ -8,6 +8,20 @@
     src:url("http://qiniu.xl686.com/font.ttf");
 }
 
+@font-face{
+    font-family: "Monaco"; 
+    src:url("http://qiniu.xl686.com/monaco.ttf");
+}
+
+
+/* 去掉百度地图logo */
+.BMap_cpyCtrl {
+    display: none;
+}
+.anchorBL {
+    display: none;
+}
+
 .light-theme {
     --content-color:  #F2F2F2;
     --header-background-color: #fcfcfc;
@@ -21,6 +35,8 @@
     --view-container:1200px;
     --keyword-color:#F56A00;
     --default-width:1088px;
+    --left-width:700px;
+    --right-width:360px;
     width: 100%;
     height: 100%;
 }
@@ -36,6 +52,12 @@
     --view-container:1200px;
     --keyword-color:#F04143;
     --default-width:1088px;
+    --left-width:700px;
+    --right-width:360px;
     width: 100%;
     height: 100%;
+   
+    
+
 }
+

@@ -11,7 +11,7 @@ import './layout.less'
 import { Scrollbars } from 'react-custom-scrollbars'
 import ParticlesBg from './ParticlesBg'
 
-export default ({children,indexData}) =>{
+export default ({children,saying}) =>{
 
     const [loadingStatus,setLoadingStatus] = useState(false)
     const [showToTop,setShowToTop] = useState(false)
@@ -70,7 +70,7 @@ export default ({children,indexData}) =>{
                     </div>
                 </div>
                 <Righrbar changeTheme={MemoChangeTheme} theme={theme} showToTop={showToTop} MemoToTop={MemoToTop}/>
-                <Voice say={indexData.saying}/>
+                <Voice say={saying}/>
                 <Footer/>
                 <Click/>
                 <Live2d/>

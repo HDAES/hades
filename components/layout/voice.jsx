@@ -9,12 +9,12 @@ class Voice extends Component {
   
     componentDidMount(){
         const text = document.querySelector('#text')
-        init(text, { showCursor: false, disableBackTyping:true, strings: [this.props.say[0].text] })
+        init(text, { showCursor: false, disableBackTyping:true, strings: [this.props.say.text] })
         const source = document.querySelector('#source')
-        init(source, { showCursor: false, disableBackTyping:true, strings: [this.props.say[0].author]})
+        init(source, { showCursor: false, disableBackTyping:true, strings: [this.props.say.author]})
       }
       render(){
-        console.log(`${new Date()} >>>>>>>>>>>Voice render`)
+        //console.log(`${new Date()} >>>>>>>>>>>Voice render`)
         return (
             <div className="voice">
                 <p className="text" id="text"></p>
