@@ -11,12 +11,13 @@ import './layout.less'
 import { Scrollbars } from 'react-custom-scrollbars'
 import ParticlesBg from './ParticlesBg'
 
-export default ({children,saying}) =>{
+
+
+export default  ({children,saying}) =>{
 
     const [loadingStatus,setLoadingStatus] = useState(false)
     const [showToTop,setShowToTop] = useState(false)
     const [theme,setTheme] = useState(true)
-    
     const ScrollbarsRef = useRef(null);
 
     //设置loading状态为true
@@ -50,12 +51,10 @@ export default ({children,saying}) =>{
         }
     }
 
-  
-    // 改变主题
-    const MemoChangeTheme = useMemo(()=>()=>{ setTheme((e)=>!e)},[loadingStatus])
     // 回到顶部
     const MemoToTop = useMemo(() =>()=>{ScrollbarsRef.current.scrollToTop()},[loadingStatus])
-    
+    // 改变主题
+    const MemoChangeTheme = useMemo(()=>()=>{ setTheme((e)=>!e)},[loadingStatus])
     return (
         <div className={theme?'light-theme':'dark-theme'}>
             {
@@ -64,7 +63,6 @@ export default ({children,saying}) =>{
             <Scrollbars onScroll={onScroll} autoHide universal ref={ScrollbarsRef}>
                 <Header/>
                 <div className="main">
-                    
                     <div className="container">
                         {children}
                     </div>
@@ -79,3 +77,4 @@ export default ({children,saying}) =>{
         </div>
     )
 }
+

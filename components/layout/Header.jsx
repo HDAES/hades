@@ -10,6 +10,9 @@ export default memo(withRouter((router) => {
         index: '/',
         name: '首页'
     },{
+        index: '/archive',
+        name: '归档'
+    },{
         index: '/about',
         name: '关于'
     }]
