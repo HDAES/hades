@@ -5,22 +5,24 @@ import Layout from '../../components/layout/Layout'
 import Header from './header'
 import ArchiveList from './archiveList'
 import HotList from '../../components/pubilc/HotList'
+import Tags from '../../components/pubilc/Tags'
+import Section from '../../components/pubilc/Section'
+import { connect } from 'react-redux'
 
-function Archive({archive}) {
-
-
-        
-    
-
+function Archive({archive,totop}) {
     return (
         <Layout saying={archive.saying}>
-            <div style={{display:'flex',justifyContent:'space-between',marginTop:10}}>
+            <div style={{display:'flex',justifyContent:'space-between'}}>
                 <div className="left"> 
                     <Header length={archive.archivelist.length} />
                     <ArchiveList archiveList={archive.archivelist}/>
                 </div>
                 <div className="right">
                     <HotList/>
+                    <div className={totop?'left-fixed':''}>
+                        <Section sectionList={archive.sectionList}/>
+                        <Tags tags={archive.tags}/>
+                    </div>
                 </div>
             </div>
             
@@ -49,6 +51,10 @@ Archive.getInitialProps = async (ctx) => {
     return { archive }
 }
 
-export default  withRouter(Archive);
+const mapStateToProps = (state) =>({
+	totop: state.pubilc.toTop
+})
+
+export default  connect(mapStateToProps)(withRouter(Archive));
 
 

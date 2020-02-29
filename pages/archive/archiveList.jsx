@@ -1,55 +1,31 @@
+
+import Archive from '../../lib/archive'
+import Link from 'next/link'
 export default ({archiveList}) =>{
 
-    const list=[]
-    const year = []
-    archiveList.forEach((item)=>{
-        year.push(item.d_create_time.slice(0,4))
-    })
-    const yearList = [...new Set(year)]
-    yearList.forEach((item)=>{
-        list.push({
-            year:item
-        })
-    })
-    list.map((item)=>{
-        let tempMonths=[]
-        item.months=[]
-        archiveList.map((i) =>{
-            if(item.year == i.d_create_time.slice(0,4)){
-                tempMonths.push(i.d_create_time.slice(5,7))
-            }
-        })
-        const dpTempMonths=[...new Set(tempMonths)] 
-        dpTempMonths.forEach((dp)=>{
-            item.months.push({
-                month:dp
-            })
-        })
-        
-
-    })
-    list.map((item)=>{
-        item.months.map((i,index)=>{
-            item.months[index].articles=[]
-            archiveList.map((j) =>{
-                if(item.year == j.d_create_time.slice(0,4) && i.month == j.d_create_time.slice(5,7)){
-                    item.months[index].articles.push(j)
-                }
-            })
-        })
-    })
-    console.log(list)
-
+    let list = Archive(archiveList)
     return (
-    <div className="archive-list">1312
+    <div className="archive-list">
         {
-            list.map( (item,i) =>{
-                return <div key={i}>
-                    <div> 年{item.year}</div>
+            list.map( (year,y) =>{
+                return <div key={y} className="year">
+                    <div className="year-lable">{year.year}</div>
                     {
-                        item.months.map((z,zi)=>{
-                           return  <div key={zi}>
-                                月:{ z.month}
+                        year.months.map((month,m)=>{
+                           return  <div key={m} className="month">
+                                <div className="month-lable">{ month.monthStr}</div>
+                                <ul className="article">
+                                {
+                                    month.articles.map((article,a)=>{
+                                        return <li key={a}>
+                                            <span className="time">{article.d_create_time.slice(5,10)}</span>
+                                            <Link href="/">
+                                                <a>{article.title}</a>
+                                            </Link>
+                                        </li>
+                                    })
+                                }
+                                </ul>
                             </div>
                         })
                     }
@@ -59,8 +35,37 @@ export default ({archiveList}) =>{
         }
         <style jsx>{`
            .archive-list{
-               
+                padding: 20px;
            } 
+           .year-lable{
+                font-size: 26px;
+                font-family: Damion;
+                color: var(--header-logo-color)
+           }
+           .month-lable{
+                padding-left:30px;
+                font-size: 18px;
+                font-family: Damion;
+                color: var(--header-logo-color)
+           }
+           .article{
+                padding-top:10px;
+                padding-left:70px;
+                color: var(--text-color);
+           }
+           .article li{
+               padding-bottom:10px;
+           }
+           .article a{
+                padding-left:15px;
+                color: var(--text-color);
+                text-decoration: underline;
+                transition: all .3s;
+           }
+           .article a:hover{
+                padding-left:20px;
+                color: var(--header-logo-color)
+           }
         `}</style>
     </div>
     )

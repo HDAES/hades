@@ -1,7 +1,9 @@
 import { memo } from 'react'
 import './layout.less'
-export default memo(({changeTheme,theme,showToTop,MemoToTop}) =>{
-    //console.log(`${new Date()} >>>>>>>>>>>rightbar render`)
+import { connect } from 'react-redux'
+
+ function  Rightbar({theme,changeTheme,showToTop,MemoToTop}){
+    // console.log(`${new Date()} >>>>>>>>>>>rightbar render`)
 
     return (
         <div className="rightbar">
@@ -16,4 +18,17 @@ export default memo(({changeTheme,theme,showToTop,MemoToTop}) =>{
             </div>
         </div>
     )
+}
+
+const mapStateToProps = (state) =>({
+	theme: state.pubilc.theme
 })
+
+const mapDispatchToProps = (dispatch) => ({
+	changeTheme() {
+		dispatch({type:'CHANGEIHEME'})
+	}
+})
+
+
+export default  memo(connect(mapStateToProps,mapDispatchToProps)(Rightbar))

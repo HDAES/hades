@@ -47,6 +47,7 @@ export default memo(() => {
             .me {
                 border-radius: 5px;
                 background-color: var(--header-background-color);
+                font-weight: 500;
             }
             .title {
                 padding: 20px 0;

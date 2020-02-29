@@ -42,6 +42,7 @@ function about({say}){
         .nick {
             padding: 5px 0;
             font-size: 16px;
+            font-weight: 500;
             color: var(--text-color);
         }
         .about-container{

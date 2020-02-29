@@ -11,13 +11,16 @@ import './layout.less'
 import { Scrollbars } from 'react-custom-scrollbars'
 import ParticlesBg from './ParticlesBg'
 
+import { connect } from 'react-redux'
 
 
-export default  ({children,saying}) =>{
+
+
+function Layout({theme,children,saying,toTop}){
 
     const [loadingStatus,setLoadingStatus] = useState(false)
     const [showToTop,setShowToTop] = useState(false)
-    const [theme,setTheme] = useState(true)
+    //const [theme,setTheme] = useState(true)
     const ScrollbarsRef = useRef(null);
 
     //设置loading状态为true
@@ -44,17 +47,23 @@ export default  ({children,saying}) =>{
     
     //监听滚动条
     function onScroll(e){
-        if(e.target.scrollTop>500){
+        if(e.target.scrollTop>363){
             setShowToTop(true) 
-        }else if(showToTop&&e.target.scrollTop<500){
+            if(!showToTop){
+                toTop()
+            }
+        }else if(showToTop&&e.target.scrollTop<363){
             setShowToTop(false) 
+            if(showToTop){
+                toTop()
+            }
         }
     }
 
     // 回到顶部
     const MemoToTop = useMemo(() =>()=>{ScrollbarsRef.current.scrollToTop()},[loadingStatus])
     // 改变主题
-    const MemoChangeTheme = useMemo(()=>()=>{ setTheme((e)=>!e)},[loadingStatus])
+    //const MemoChangeTheme = useMemo(()=>()=>{ setTheme((e)=>!e)},[loadingStatus])
     return (
         <div className={theme?'light-theme':'dark-theme'}>
             {
@@ -67,7 +76,7 @@ export default  ({children,saying}) =>{
                         {children}
                     </div>
                 </div>
-                <Righrbar changeTheme={MemoChangeTheme} theme={theme} showToTop={showToTop} MemoToTop={MemoToTop}/>
+                <Righrbar  showToTop={showToTop} MemoToTop={MemoToTop}/>
                 <Voice say={saying}/>
                 <Footer/>
                 <Click/>
@@ -77,4 +86,16 @@ export default  ({children,saying}) =>{
         </div>
     )
 }
+
+const mapStateToProps = (state) =>({
+	theme: state.pubilc.theme
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	toTop() {
+		dispatch({type:'TOTOP'})
+	}
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Layout)
 

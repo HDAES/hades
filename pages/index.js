@@ -5,35 +5,27 @@ import Layout from '../components/layout/Layout'
 import Section from '../components/index/Section'
 import Plan from '../components/index/Plan'
 import HotList from '../components/pubilc/HotList'
+import Tags from '../components/pubilc/Tags'
 import ArticleList from '../components/pubilc/ArticleList'
+import { connect } from 'react-redux'
 
 
-function Index({indexData}){
+function  Index({indexData,totop}){
   return (
     <Layout saying={indexData.saying}>
-      <div className="index">
-        <div className="left">
+      <div style={{display:'flex',justifyContent:'space-between'}} >
+        <div style={{width:740}}>
             <Section section={indexData.sectionList}/>
             <Plan/>
             <ArticleList articleList={indexData.articleList}/>
         </div>
-        <div className="right">
+        <div style={{width:320}}>
             <HotList/>
+            <div className={totop?'left-fixed':''}> 
+              <Tags tags={indexData.tags}/>
+            </div>
         </div>
       </div>
-      
-      <style jsx>{`
-        .index{
-          display: flex;
-          justify-content: space-between;
-        }
-        .left{
-          width:740px;
-        }
-        .right{
-          width:320px;
-        }
-      `}</style>
     </Layout>
   )
 }
@@ -44,7 +36,9 @@ Index.getInitialProps  = async (ctx) =>{
   let indexData={}
   await axios.get(api.indexData).then( res =>{
     if(res.status == 200 ){
+     
      indexData = res.data.data
+     //console.log(indexData)
     }
   })
   
@@ -52,4 +46,7 @@ Index.getInitialProps  = async (ctx) =>{
 }
 
 
-export default Index;
+const mapStateToProps = (state) =>({
+	totop: state.pubilc.toTop
+})
+export default connect(mapStateToProps)(Index);

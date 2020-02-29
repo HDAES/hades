@@ -8,7 +8,6 @@ import ArticleList from '../../components/pubilc/ArticleList'
 import Nav from './nav'
 
 function about({section,router}) {
-
     const [list,setList] = useState(section.articleList)
 
     // 修改分类
@@ -20,11 +19,8 @@ function about({section,router}) {
                 setList(res.data.data.articleList)
                 //console.log(res.data.data.articleList)
             }
-        })
-
-        
+        })  
     }
-
     return (
         <Layout saying={section.saying}>
             <div className="section">

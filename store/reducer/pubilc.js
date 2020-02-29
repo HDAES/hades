@@ -4,7 +4,8 @@ const defaultState = {
     theme:true,
     section:[],
     articleList:[],
-    articleLength:0
+    articleLength:0,
+    toTop:false
 }
 
 // 纯函数
@@ -38,6 +39,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 section : action.section
+            }
+        case 'TOTOP':
+            return {
+                ...state,
+                toTop : !state.toTop
             }
 		default:
 			return state

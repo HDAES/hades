@@ -1,5 +1,6 @@
+import { memo } from 'react'
 import Link from 'next/link'
-export default ({section}) =>{
+export default memo(({section}) =>{
     console.log(`${new Date()} >>>>>>>>>>> Section render`)
     return (
         <div className="section">
@@ -70,4 +71,4 @@ export default ({section}) =>{
             `}</style>
         </div>
     )
-}
+})

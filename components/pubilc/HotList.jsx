@@ -16,7 +16,13 @@ const hotlist =[{
     },{
         type:0,
         text:'1233'
-    }
+    },{
+      type:0,
+      text:'1233'
+  },{
+    type:0,
+    text:'1233'
+}
 ]
 export default () =>{
     return (
