@@ -10,14 +10,12 @@ import Live2d from './live2d'
 import './layout.less'
 import { Scrollbars } from 'react-custom-scrollbars'
 import ParticlesBg from './ParticlesBg'
-
 import { connect } from 'react-redux'
 
 
+function Layout({theme,children,saying,toTop,routerPush,footer}){
 
-
-function Layout({theme,children,saying,toTop}){
-
+    const [minHeight,setMinHeight] = useState(false)
     const [loadingStatus,setLoadingStatus] = useState(false)
     const [showToTop,setShowToTop] = useState(false)
     //const [theme,setTheme] = useState(true)
@@ -29,6 +27,7 @@ function Layout({theme,children,saying,toTop}){
     }
      //false
     function setFalse(){
+        routerPush()
         setLoadingStatus(false)
     }
     useEffect(()=>{
@@ -45,6 +44,10 @@ function Layout({theme,children,saying,toTop}){
         }
     },[loadingStatus])
     
+    useEffect(()=>{
+        setMinHeight(document.documentElement.clientHeight-67)
+    },[true])
+
     //监听滚动条
     function onScroll(e){
         if(e.target.scrollTop>363){
@@ -71,30 +74,33 @@ function Layout({theme,children,saying,toTop}){
             }
             <Scrollbars onScroll={onScroll} autoHide universal ref={ScrollbarsRef}>
                 <Header/>
-                <div className="main">
+                <div className="main" style={{minHeight:minHeight}}>
                     <div className="container">
                         {children}
                     </div>
                 </div>
                 <Righrbar  showToTop={showToTop} MemoToTop={MemoToTop}/>
                 <Voice say={saying}/>
-                <Footer/>
+                { footer?<Footer/>:null}
                 <Click/>
                 <Live2d/>
-                
             </Scrollbars>
         </div>
     )
 }
 
 const mapStateToProps = (state) =>({
-	theme: state.pubilc.theme
+    theme: state.pubilc.theme,
+    footer:state.pubilc.showFooter
 })
 
 const mapDispatchToProps = (dispatch) => ({
 	toTop() {
 		dispatch({type:'TOTOP'})
-	}
+    },
+    routerPush(){
+        dispatch({type:'ROUTER'})
+    }
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Layout)

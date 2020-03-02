@@ -18,7 +18,7 @@ export default ({ articleList }) => {
                 articleList.slice(0, page * PAGE_SIZE).map((item, index) => {
                     return (
                         <div key={index} className="item">
-                            <div className="title">{item.title}</div>
+                            <div className="title" onClick={()=>Router.push({pathname: '/article',query: { id:item.id}})}>{item.title}</div>
                             <div className="info">
                                 <div className="create-time">
                                     <Icon style={{ fontSize: 24, color: 'var(--text-color)' }} type="calendar" />
@@ -33,7 +33,9 @@ export default ({ articleList }) => {
                                     <span>{item.tag}</span>
                                 </div>
                             </div>
-                            <img className="art-image" src={item.image} />
+                            <div onClick={()=>Router.push({pathname: '/article',query: { id:item.id}})} className="image">
+                                <img className="art-image" src={item.image} />
+                            </div>
                             <div className="description">{item.description}</div>
                         </div>
                     )
@@ -89,8 +91,12 @@ export default ({ articleList }) => {
                 font-weight: 500;
                 color:var(--text-color);
             }
-            .art-image{
+            .image{
                 margin-top: 20px;
+                cursor: pointer;
+            }
+            .art-image{
+                
                 width: 200px;
                 object-fit: contain ;
             }

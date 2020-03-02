@@ -7,9 +7,11 @@ import Header from './header'
 import ArticleList from '../../components/pubilc/ArticleList'
 import Nav from './nav'
 
+import Music from './Music'
+
+
 function about({section,router}) {
     const [list,setList] = useState(section.articleList)
-
     // 修改分类
     function changeNav(sid){
         //获取二级分类id
@@ -21,23 +23,21 @@ function about({section,router}) {
             }
         })  
     }
+
     return (
         <Layout saying={section.saying}>
             <div className="section">
-                <Header head={section.sectionList}/>
-                <div className="section-container">
-                    <Nav navlist={section.sectionSecondList} changeNav={changeNav}/>
-                    <ArticleList articleList={list}/>
-                </div>
-                
+                {
+                    router.query.section !=4? 
+                        <>
+                        <Header head={section.sectionList}/>
+                        <div style={{display:'flex',alignItems:'flex-start'}}>
+                            <Nav navlist={section.sectionSecondList} changeNav={changeNav}/>
+                            <ArticleList articleList={list}/>
+                        </div></>
+                    : <Music section={section}/>
+                }   
             </div>
-            <style jsx>{`
-            .section-container{
-                display: flex;
-                align-items: flex-start;
-            }
-            
-            `}</style>
         </Layout>
     )
 }
@@ -45,11 +45,21 @@ function about({section,router}) {
 // 异步获取数据
 about.getInitialProps = async (ctx) => {
     let section = {}
-    await axios.post(api.sectionData,ctx.query).then(res => {
-        if (res.status == 200) {
-            section= res.data.data   
-        }
-    })
+
+    if(ctx.query.section!='4'){
+        await axios.post(api.sectionData,ctx.query).then(res => {
+            if (res.status == 200) {
+                section= res.data.data   
+            }
+        })
+    }else{
+        await axios.get(api.music).then(res => {
+            if (res.status == 200) {
+                section= res.data.data   
+            }
+        })
+    }
+    
 
     return { section }
 }

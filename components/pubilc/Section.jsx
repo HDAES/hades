@@ -1,6 +1,5 @@
 import Link from "next/link";
 function Section({sectionList=[]}){
-    console.log(sectionList)
     return (
         <div className="section">
              <div className="section-title">

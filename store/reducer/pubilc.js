@@ -5,7 +5,8 @@ const defaultState = {
     section:[],
     articleList:[],
     articleLength:0,
-    toTop:false
+    toTop:false,
+    showFooter:true
 }
 
 // 纯函数
@@ -44,6 +45,18 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 toTop : !state.toTop
+            }
+        //跳转改变状态
+        case 'ROUTER':
+            return {
+                ...state,
+                toTop : false
+            }
+        //改变 底部footer
+        case 'FOOTER':
+            return {
+                ...state,
+                showFooter : action.footer
             }
 		default:
 			return state
