@@ -1,27 +1,30 @@
-import React, { Component,memo } from 'react'
+import React, { useEffect,memo } from 'react'
 import './layout.less'
 import { init } from 'ityped'
+import { connect } from 'react-redux'
 
-class Voice extends Component {
-  constructor(props) {
-    super(props)
-  }
-  
-    componentDidMount(){
-        const text = document.querySelector('#text')
-        init(text, { showCursor: false, disableBackTyping:true, strings: [this.props.say.text] })
-        const source = document.querySelector('#source')
-        init(source, { showCursor: false, disableBackTyping:true, strings: [this.props.say.author]})
-      }
-      render(){
-        //console.log(`${new Date()} >>>>>>>>>>>Voice render`)
-        return (
-            <div className="voice">
-                <p className="text" id="text"></p>
-                <p className="source" id="source"></p>
-            </div>
-        )
-      }
+
+function Voice({audioStatus,audio,say}){
+  useEffect( ()=>{
+    const text = document.querySelector('#text')
+    const source = document.querySelector('#source')
+    init(text, { showCursor: false, disableBackTyping:true, strings: [say.text] }) 
+    init(source, { showCursor: false, disableBackTyping:true, strings: [say.author]})
+  },[])
+
+  return (
+    <div className="voice">
+      {
+        JSON.stringify(audio) == "{}" && audioStatus==false ?
+          <><p className="text" id="text"></p><p className="source" id="source"></p> </> :null
+    }
+     </div>
+  )
+
 }
 
-export default memo(Voice)
+const mapStateToProps = (state) =>({
+  audioStatus:state.pubilc.audioStatus,
+  audio:state.pubilc.audio
+})
+export default connect(mapStateToProps)(memo(Voice))

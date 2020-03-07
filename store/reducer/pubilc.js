@@ -1,62 +1,34 @@
 
 const defaultState = {
-    say: {},
     theme:true,
-    section:[],
-    articleList:[],
-    articleLength:0,
     toTop:false,
-    showFooter:true
+    audioStatus:false,  //音频播放状态
+    audio:{}
 }
 
 // 纯函数
 export default (state = defaultState, action) => {
 	switch (action.type) {
-        // 名言
-		case 'SAYING':
-			return {
-				...state,
-				say: action.say
-            }
         // 主题
 		case 'CHANGEIHEME':
 			return {
 				...state,
 				theme: !state.theme
             }
-        //  文章列表
-        case 'ARTICLELIST' :
-            return {
-                ...state,
-                articleList : action.articleList
-            }
-         //  文章长度
-         case 'ARTICLELENGTH' :
-            return {
-                ...state,
-                articleLength: action.articleLength
-            }
-        case 'SECTION':
-            return {
-                ...state,
-                section : action.section
-            }
         case 'TOTOP':
             return {
                 ...state,
-                toTop : !state.toTop
+                toTop : action.toTop
             }
-        //跳转改变状态
-        case 'ROUTER':
+        case 'AUDIOSTATUS':
             return {
                 ...state,
-                toTop : false
+                audioStatus : action.status
             }
-        //改变 底部footer
-        case 'FOOTER':
+        case 'AUDIO': 
             return {
                 ...state,
-                showFooter : action.footer
+                audio : action.audio
             }
 		default:
 			return state

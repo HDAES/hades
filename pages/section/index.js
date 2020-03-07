@@ -6,11 +6,13 @@ import Layout from '../../components/layout/Layout'
 import Header from './header'
 import ArticleList from '../../components/pubilc/ArticleList'
 import Nav from './nav'
-
 import Music from './Music'
 
 
-function about({section,router}) {
+function section({section,router}) {
+
+   
+
     const [list,setList] = useState(section.articleList)
     // 修改分类
     function changeNav(sid){
@@ -43,7 +45,7 @@ function about({section,router}) {
 }
 
 // 异步获取数据
-about.getInitialProps = async (ctx) => {
+section.getInitialProps = async (ctx) => {
     let section = {}
 
     if(ctx.query.section!='4'){
@@ -64,6 +66,6 @@ about.getInitialProps = async (ctx) => {
     return { section }
 }
 
-export default  withRouter(about);
+export default  withRouter(section);
 
 

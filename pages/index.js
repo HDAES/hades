@@ -20,7 +20,7 @@ function  Index({indexData,totop}){
             <ArticleList articleList={indexData.articleList}/>
         </div>
         <div style={{width:320}}>
-            <HotList/>
+            <HotList hotlist={indexData.hotList}/>
             <div className={totop?'left-fixed':''}> 
               <Tags tags={indexData.tags}/>
             </div>

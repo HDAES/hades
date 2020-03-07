@@ -18,6 +18,7 @@ class MyApp extends App {
     
         return {pageProps}
       }
+      
   
     render () {
       const { Component, pageProps, reduxStore } = this.props

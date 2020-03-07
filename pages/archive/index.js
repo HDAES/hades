@@ -18,7 +18,7 @@ function Archive({archive,totop}) {
                     <ArchiveList archiveList={archive.archivelist}/>
                 </div>
                 <div className="right">
-                    <HotList/>
+                    <HotList hotlist={archive.hotList}/>
                     <div className={totop?'left-fixed':''}>
                         <Section sectionList={archive.sectionList}/>
                         <Tags tags={archive.tags}/>

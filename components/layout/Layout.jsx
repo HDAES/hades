@@ -8,18 +8,17 @@ import Loading from '../Loading'
 import Click from './ClickHeart'
 import Live2d from './live2d'
 import './layout.less'
-import { Scrollbars } from 'react-custom-scrollbars'
+//import { Scrollbars } from 'react-custom-scrollbars'
 import ParticlesBg from './ParticlesBg'
 import { connect } from 'react-redux'
 
 
-function Layout({theme,children,saying,toTop,routerPush,footer}){
+function Layout({theme,children,saying,toTop,routerPush}){
 
     const [minHeight,setMinHeight] = useState(false)
     const [loadingStatus,setLoadingStatus] = useState(false)
-    const [showToTop,setShowToTop] = useState(false)
     //const [theme,setTheme] = useState(true)
-    const ScrollbarsRef = useRef(null);
+    //const ScrollbarsRef = useRef(null);
 
     //设置loading状态为true
     function setTrue(){
@@ -34,7 +33,9 @@ function Layout({theme,children,saying,toTop,routerPush,footer}){
         Router.events.on('routeChangeStart',setTrue)
         Router.events.on('routeChangeComplete',setFalse)
         Router.events.on('routeChangeError',setFalse)
+        window.addEventListener('scroll', onScroll);
         return () =>{
+            window.removeEventListener('scroll', onScroll);
             Router.events.off('routeChangeStart',setTrue)
             Router.events.off('routeChangeComplete',setFalse)
             Router.events.off('routeChangeError',setFalse)
@@ -49,54 +50,44 @@ function Layout({theme,children,saying,toTop,routerPush,footer}){
     },[true])
 
     //监听滚动条
-    function onScroll(e){
-        if(e.target.scrollTop>363){
-            setShowToTop(true) 
-            if(!showToTop){
-                toTop()
-            }
-        }else if(showToTop&&e.target.scrollTop<363){
-            setShowToTop(false) 
-            if(showToTop){
-                toTop()
-            }
+    function onScroll(){
+        if(window.scrollY>320){
+            toTop(true)
+        }else if(window.scrollY<320){
+            toTop(false)
         }
     }
 
-    // 回到顶部
-    const MemoToTop = useMemo(() =>()=>{ScrollbarsRef.current.scrollToTop()},[loadingStatus])
-    // 改变主题
-    //const MemoChangeTheme = useMemo(()=>()=>{ setTheme((e)=>!e)},[loadingStatus])
+
     return (
         <div className={theme?'light-theme':'dark-theme'}>
             {
                 loadingStatus?<Loading/>:''
             }
-            <Scrollbars onScroll={onScroll} autoHide universal ref={ScrollbarsRef}>
-                <Header/>
-                <div className="main" style={{minHeight:minHeight}}>
-                    <div className="container">
-                        {children}
-                    </div>
+            
+            <Header/>
+            <div className="main" style={{minHeight:minHeight}}>
+           
+                <div className="container">
+                    {children}
                 </div>
-                <Righrbar  showToTop={showToTop} MemoToTop={MemoToTop}/>
-                <Voice say={saying}/>
-                { footer?<Footer/>:null}
-                <Click/>
-                <Live2d/>
-            </Scrollbars>
+            </div>
+            <Righrbar />
+            <Voice say={saying}/>
+            <Footer/>
+            <Click/>
+            <Live2d/>
         </div>
     )
 }
 
 const mapStateToProps = (state) =>({
     theme: state.pubilc.theme,
-    footer:state.pubilc.showFooter
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	toTop() {
-		dispatch({type:'TOTOP'})
+	toTop(totop) {
+		dispatch({type:'TOTOP',toTop:totop})
     },
     routerPush(){
         dispatch({type:'ROUTER'})

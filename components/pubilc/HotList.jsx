@@ -1,30 +1,4 @@
-const hotlist =[{
-        type:0,
-        text:'1233'
-    },{
-        type:0,
-        text:'1233'
-    },{
-        type:0,
-        text:'1233'
-    },{
-        type:0,
-        text:'1233'
-    },{
-        type:0,
-        text:'1233'
-    },{
-        type:0,
-        text:'1233'
-    },{
-      type:0,
-      text:'1233'
-  },{
-    type:0,
-    text:'1233'
-}
-]
-export default () =>{
+export default ({hotlist}) =>{
     return (
         <div className="hot-list" id="hotlist">
       <div className="hot-title">
@@ -36,7 +10,7 @@ export default () =>{
           return (
             <div className="item" key={index}>
               <span>{index + 1}</span>
-              <a> {item.text}</a>
+              <a href={'/article?id='+item.cid}>{item.title}</a>
             </div>
           );
         })}
@@ -66,7 +40,7 @@ export default () =>{
         }
         .item {
           display: flex;
-          padding-bottom: 12px;
+          padding-bottom: 18px;
         }
         .item:last-child {
           padding: 0;
