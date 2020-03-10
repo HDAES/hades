@@ -2,9 +2,11 @@ ul{
     list-style-type:none;
     margin-left: 0!important;
 }
-h4{
-       
+h4{  
     color: var(--text-color);
+}
+h1{  
+    color: var(--header-logo-color);
 }
 
 .detailed-content{

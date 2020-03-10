@@ -68,16 +68,13 @@ export default  memo(connect(mapStateToProps,mapDispatchToProps)(withRouter(Righ
 function HotComments({hotComments,songName}){
 
     useEffect(()=>{
+        const index= parseInt(Math.random() * (hotComments.length))
         const text = document.querySelector('#hot-text')
         text.innerHTML = ''
-        //const source = document.querySelector('#hot-source')
-        const textArr=[]
-        //const sourceArr=[]
-        hotComments.forEach((item)=>{
-            textArr.push(item.content+`。 Author ——${item.user.nickname}《${songName}》`)
-            //sourceArr.push()
-        })
-        init(text,{ showCursor: false, backDelay:  15000,backSpeed:30,typeSpeed: 100,disableBackTyping:true, strings:textArr })
+        init(text,
+            { showCursor: false, backDelay:  15000,backSpeed:30,typeSpeed: 100,disableBackTyping:true, 
+            strings:[hotComments[index].content+`。 Author ——${hotComments[index].user.nickname}《${songName}》` ] }
+            )
         //init(source,{ showCursor: false, disableBackTyping:true, strings:sourceArr})
     },[songName])
 

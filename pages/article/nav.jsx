@@ -16,7 +16,7 @@ function nav({article}){
 
     return (
         <div className="navbar">
-            <div style={{fontSize:24,color:'black',fontWeight:'bold'}}>目录</div>
+            <div style={{fontSize:24,color:'var(--header-logo-color)',fontWeight:'bold'}}>目录</div>
             {
                 toc.map((item,index) =>{
 

@@ -13,7 +13,7 @@ import ParticlesBg from './ParticlesBg'
 import { connect } from 'react-redux'
 
 
-function Layout({theme,children,saying,toTop,routerPush}){
+function Layout({theme,children,audioStatus,audio,toTop,saying}){
 
     const [minHeight,setMinHeight] = useState(false)
     const [loadingStatus,setLoadingStatus] = useState(false)
@@ -26,7 +26,6 @@ function Layout({theme,children,saying,toTop,routerPush}){
     }
      //false
     function setFalse(){
-        routerPush()
         setLoadingStatus(false)
     }
     useEffect(()=>{
@@ -73,7 +72,7 @@ function Layout({theme,children,saying,toTop,routerPush}){
                 </div>
             </div>
             <Righrbar />
-            <Voice say={saying}/>
+            {  JSON.stringify(audio) == "{}" && audioStatus==false?<Voice say={saying}/>:null}
             <Footer/>
             <Click/>
             <Live2d/>
@@ -83,15 +82,14 @@ function Layout({theme,children,saying,toTop,routerPush}){
 
 const mapStateToProps = (state) =>({
     theme: state.pubilc.theme,
+    audioStatus:state.pubilc.audioStatus,
+    audio:state.pubilc.audio
 })
 
 const mapDispatchToProps = (dispatch) => ({
 	toTop(totop) {
 		dispatch({type:'TOTOP',toTop:totop})
     },
-    routerPush(){
-        dispatch({type:'ROUTER'})
-    }
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Layout)

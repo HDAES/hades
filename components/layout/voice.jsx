@@ -1,10 +1,10 @@
 import React, { useEffect,memo } from 'react'
 import './layout.less'
 import { init } from 'ityped'
-import { connect } from 'react-redux'
 
 
-function Voice({audioStatus,audio,say}){
+
+function Voice({say}){
   useEffect( ()=>{
     const text = document.querySelector('#text')
     const source = document.querySelector('#source')
@@ -14,17 +14,11 @@ function Voice({audioStatus,audio,say}){
 
   return (
     <div className="voice">
-      {
-        JSON.stringify(audio) == "{}" && audioStatus==false ?
-          <><p className="text" id="text"></p><p className="source" id="source"></p> </> :null
-    }
+      <p className="text" id="text"></p><p className="source" id="source"></p> 
      </div>
   )
 
 }
 
-const mapStateToProps = (state) =>({
-  audioStatus:state.pubilc.audioStatus,
-  audio:state.pubilc.audio
-})
-export default connect(mapStateToProps)(memo(Voice))
+
+export default (memo(Voice))
