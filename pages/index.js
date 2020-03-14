@@ -13,6 +13,9 @@ import { connect } from 'react-redux'
 function  Index({indexData,totop}){
   return (
     <Layout saying={indexData.saying}>
+      <Head>
+      <title>HADES</title>
+      </Head>
       <div style={{display:'flex',justifyContent:'space-between'}} >
         <div style={{width:740}}>
             <Section section={indexData.sectionList}/>
