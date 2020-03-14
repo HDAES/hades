@@ -9,8 +9,8 @@ export default ({tags =[]}) =>{
             </div>
             <div className="tag-list">
                 {
-                tags.map((item) => (
-                    <Link href='/' key={item.s_id}>
+                tags.map((item,index) => (
+                    <Link href='/' key={index}>
                         <a><i className={`iconfont icon ${item.s_icon}`}></i> {item.s_name}</a>
                     </Link>
                     )

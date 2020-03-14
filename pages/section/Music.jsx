@@ -1,25 +1,36 @@
 import { useState} from 'react'
-import { Icon,Pagination} from 'antd'
+import { Icon,Pagination,message} from 'antd'
 import  dynamic  from 'next/dynamic'
+import axios from 'axios'
+import api from '../../lib/api'
 import HotMusicList from './HotMusicList'
+import { connect } from 'react-redux'
 import Router from 'next/router'
 const ReactAplayer = dynamic(import('react-aplayer'),{ ssr: false})
 const DPlayer = dynamic(import('react-dplayer'),{ ssr: false})
 
+const mapDispatchToProps = (dispatch) => ({
+	audioStatus(status) {
+		dispatch({type:'AUDIOSTATUS',status:status})
+    },
+    audio(audio){
+        dispatch({type:'AUDIO',audio})
+    }
+})
 
 
-function Music({section}){
+function Music({section,audioStatus,audio}){
     return (
         <div className="recommend">
             <div className="left">
                 <RecommendHeader head={section.sectionList}/>
-                <MusicList musicList={section.musicList}/>
+                <MusicList musicList={section.musicList} audioStatus={audioStatus} audio={audio}/>
             </div>
             <HotMusicList list={section.hotlist}/>
             <style jsx>{`
                 .recommend{
                     display: flex;
-                    align-items: flex-start;
+                    
                     justify-Content:space-between;
                     height:100%;
                 }
@@ -32,7 +43,7 @@ function Music({section}){
     )
 }
 
-export default Music
+export default connect('',mapDispatchToProps)(Music)
 
 // 推荐头部
 function RecommendHeader({head}){
@@ -77,7 +88,8 @@ function RecommendHeader({head}){
 
 
 
-function  MusicList({musicList}){
+
+function  MusicList({musicList,audioStatus,audio}){
 
     const SIZE= 5;
    
@@ -85,32 +97,75 @@ function  MusicList({musicList}){
     const [mvUrl,setMvUrl] = useState('')
     const [page,setPage] = useState(1)
 
+    //播放音乐
     function play(item){
-          const auto = {
-            name:item.name,
-            artist:item.artists,
-            url:item.url,
-            cover:item.picUrl,
-            theme: '#ebd0c2',
-            lrc:item.lyric
-          }
-          ap.list.add([auto])
-          ap.toggle()
+        // 获取音乐播放地址
+        const theme='#ebd0c2'
+        axios({
+            method:'POST',
+            url:api.getMusicUrl,
+            data:{
+                songid:item.songid,
+                songCTR:item.songCTR
+            }
+        }).then(res=>{
+            if(res.data.code ==200){
+                ap.list.clear()
+                const audioDetails={
+                    name:item.name,
+                    artist:item.artists,
+                    theme,
+                    cover:item.picUrl,
+                    lrc:item.lyric,
+                    url:res.data.data.url,
+                    musicComment:res.data.data.musicComment
+                }
+                window.ap.list.add([audioDetails])
+                ap.volume(0.1, true);
+                ap.play()
+                audioStatus(true)
+                audio(audioDetails)
+                message.success('已添加到播放列表');
+            }else{
+                message.error('添加失败，稍后再试！');
+            }
+        })
     }
       
-
-    return( <div>
-        <div className="music-list">
+    //播放MV
+    function playMv(item){
+        ap.pause()
+        axios({
+            method:'POST',
+            url:api.getMusicMv,
+            data:{
+                id:item.mvID,
+                mvCTR:item.mvCTR
+            }
+        }) .then(res=>{
+            console.log(res)
+            if(res.data.code ==200){
+                setMvUrl(res.data.data.data.url)
+                message.success('已添加到播放列表');
+            }else{
+                message.error('添加失败，稍后再试！');
+            }
+        })
+    }
+    return( 
+        <div className="music-list"  style={{position: 'relative'}} >
             {
                 musicList.slice((page-1)*SIZE,SIZE*page).map((item,index)=>{
                     return (
                         <div className="item" key={item.id}>
                             <div className="serial-image">
-                                <span className="serial">{item.id}</span>
+                                <span className="serial">{index+1}</span>
                                 <img className="pic" src={item.picUrl} alt={item.name}/>
                             </div>
                             <div className="song">
-                                <div className="name">{item.name}</div>
+                                <div className="name">{item.name}
+                                    <span style={{color:"#999",fontSize:14}}>({item.transNames})</span>
+                                </div>
                                 <div className="info">
                                     <div className="singer">
                                         <i className="iconfont icon icon-geshou"></i>
@@ -124,7 +179,10 @@ function  MusicList({musicList}){
                             </div>
                             <div className="play">
                                 <div onClick={()=>play(item)}><i className="iconfont icon-bofang"></i></div>
-                                <div onClick={()=>setMvUrl(item.mvUrl)}><i className="iconfont icon-mv"></i></div>
+                                {
+                                    item.mvID>0?<div onClick={()=>playMv(item)}><i className="iconfont icon-mv"></i></div>:null
+                                }
+                                
                             </div>
                         </div>
                     )
@@ -137,7 +195,9 @@ function  MusicList({musicList}){
                 total={musicList.length}
                 onChange={(e)=>setPage(e)}
             />
-            <ReactAplayer style={{bottom:'60px!important'}}  lrcType={2} onInit={(ap)=>{setAp(ap);window.ap=ap} } />
+            <div style={{position: 'absolute',bottom:0,width:700}}>
+                <ReactAplayer   lrcType={2} onInit={(ap)=>{setAp(ap);window.ap=ap} } />
+            </div>
             { 
                 mvUrl.length>0?<Mv url={mvUrl} closeMv={()=>setMvUrl('')}/>:null
             }
@@ -204,8 +264,7 @@ function  MusicList({musicList}){
                 
             `}</style>
         </div>
-        
-    </div>
+    
     )
 }
 

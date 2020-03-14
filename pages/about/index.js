@@ -7,9 +7,9 @@ import Contacts from './Contacts '
 import Friend from './Friend'
 import { Avatar } from 'antd'
 
-function about({say}){
+function about({aboutData}){
     return (
-        <Layout saying={say.saying}>
+        <Layout saying={aboutData.saying}>
             <div className="about">
                 <div className="avatar">
                     <Avatar size={68} icon="user" src="http://qiniu.xl686.com/avatar.png?v=0512" />
@@ -19,7 +19,7 @@ function about({say}){
                 <div className="about-container">
                     <div className="me-friend">
                         <Me/>
-                        <Friend linkList={[]}/>
+                        <Friend linkList={aboutData.linkList}/>
                     </div>
                     <div className="des-map">
                         <Contacts/>
@@ -63,16 +63,15 @@ function about({say}){
 
 // 异步获取数据
 about.getInitialProps  = async (ctx) =>{
-    let say = { }
+    let aboutData = { }
     //获取首页数据
-    await axios.get(api.saying).then( res =>{
+    await axios.get(api.getAbout).then( res =>{
         if(res.status == 200 ){
-            console.log(res.data.data)
-            say = res.data.data
+            aboutData = res.data.data
         }
     })
 
-    return { say }
+    return { aboutData }
 }
 
 export default about;

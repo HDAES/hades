@@ -1,18 +1,22 @@
 import { useState} from 'react';
 import axios from 'axios'
 import { Modal, Button, Form, Input, Icon, message, Avatar } from 'antd'
+import api from '../../lib/api/index'
 
 export default Form.create({})( ({form, linkList}) => {
     const [visible,setVisible] = useState(false)
     const {getFieldDecorator} = form
 
     function handleSubmit(){
-        let { nickname,email,link} = form.getFieldsValue()
-        if(nickname == undefined || email == undefined || link == undefined){
+        let { nickname,avatar,url} = form.getFieldsValue()
+        console.log(nickname)
+        console.log(avatar)
+        console.log(url)
+        
+        if(nickname == undefined || avatar == undefined || url == undefined){
             message.error('请完善信息');
         }else{
-            axios.post(api.applyLink,form.getFieldsValue()).then( res =>{
-                console.log(res)
+            axios.post(api.appLink,form.getFieldsValue()).then( res =>{
                 if(res.status ==200 && res.data.code == 200){
                     message.success(res.data.message);
                     setVisible(false)
@@ -21,8 +25,8 @@ export default Form.create({})( ({form, linkList}) => {
         }
     }
 
-    function toFriend(link){
-        window.open(link)
+    function toFriend(url){
+        window.open(url,"_blank")
     }
   return (
     <div className="friend">
@@ -33,14 +37,14 @@ export default Form.create({})( ({form, linkList}) => {
             { 
                 linkList.map( (item,index) =>{
                     return (
-                        <div className="link-item" key={index} onClick={()=>toFriend(item.link)}>
+                        <div className="link-item" key={index} onClick={()=>toFriend(item.url)}>
                             {
                                 item.avatar? <Avatar size="large"  src={item.avatar} >USER</Avatar>:
                                 <Avatar size="large" icon='user' >USER</Avatar>
                             }
                             <div className="name-intr">
                                 <div className="name">{item.nickname}</div>
-                                <div className="lable">{item.intr}</div>
+                                <div className="lable">{item.Intr}</div>
                             </div>
                         </div>
                     )
@@ -76,17 +80,17 @@ export default Form.create({})( ({form, linkList}) => {
               </Form.Item>
               <Form.Item style={{flexBasis: '32%'}}>
                     {
-                        getFieldDecorator('email')(
+                        getFieldDecorator('avatar')(
                             <Input 
                                 
-                                prefix={<Icon type="mail" />}
-                                placeholder="邮箱：(必填)"/>
+                                prefix={<Icon type="picture" />}
+                                placeholder="头像地址："/>
                         )
                     }
               </Form.Item>
               <Form.Item style={{flexBasis: '32%'}}>
                     {
-                        getFieldDecorator('link')(
+                        getFieldDecorator('url')(
                             <Input 
                                 
                                 prefix={<Icon type="global" />}
@@ -94,10 +98,11 @@ export default Form.create({})( ({form, linkList}) => {
                         )
                     }
               </Form.Item>
-              <Form.Item style={{flexBasis: '80%'}}>
+              <Form.Item style={{flexBasis: '100%'}}>
                     {
-                        getFieldDecorator('intr')(
+                        getFieldDecorator('Intr')(
                             <Input.TextArea 
+                            rows={4} 
                                 placeholder="简介：(选填)"/>
                         )
                     }
@@ -131,16 +136,16 @@ export default Form.create({})( ({form, linkList}) => {
         .link-list{
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
             padding:20px 20px 0 20px;
         }
         .link-item{
             display: flex;
             flex-direction: row;
-            flex-basis: 32%;
+            flex-basis: 30%;
             background-color: var(--content-color);
             margin-bottom:20px;
-            padding:10px ;
+            margin-right:20px;
+            padding:20px 10px;
             cursor: pointer;
             transition: all .3s;
         }

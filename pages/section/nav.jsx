@@ -6,8 +6,8 @@ export default ({navlist,changeNav}) =>{
         <div className="nav">
             <div className="nav-item" onClick={()=>changeNav(0)}>全部</div>
             {
-                navlist.map((item)=>{
-                    return <div className="nav-item" key={item.s_id} onClick={()=>changeNav(item.s_id)}>
+                navlist.map((item,index)=>{
+                    return <div className="nav-item" key={index} onClick={()=>changeNav(item.s_id)}>
                         {item.s_name}
                     </div>
                 })

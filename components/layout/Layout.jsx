@@ -45,7 +45,7 @@ function Layout({theme,children,audioStatus,audio,toTop,saying}){
     },[loadingStatus])
     
     useEffect(()=>{
-        setMinHeight(document.documentElement.clientHeight-67)
+        setMinHeight(document.documentElement.clientHeight-80)
     },[true])
 
     //监听滚动条
