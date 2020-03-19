@@ -30,11 +30,12 @@ function Music({section,audioStatus,audio}){
             <style jsx>{`
                 .recommend{
                     display: flex;
-                    
                     justify-Content:space-between;
                     height:100%;
                 }
                 .left{
+                    display: flex;
+                    flex-direction: column;
                     width:740px;
                     background-color: var(--header-background-color);
                 }
@@ -91,7 +92,7 @@ function RecommendHeader({head}){
 
 function  MusicList({musicList,audioStatus,audio}){
 
-    const SIZE= 5;
+    const SIZE= 4;
    
     const [ap,setAp] = useState()
     const [mvUrl,setMvUrl] = useState('')
@@ -189,7 +190,7 @@ function  MusicList({musicList,audioStatus,audio}){
                 })
             }
             <Pagination 
-                style={{padding:'10px 50px 30px 0',textAlign:'right'}} 
+                style={{position: 'absolute',bottom:110,right:20}} 
                 size="small"
                 pageSize={SIZE}
                 total={musicList.length}
@@ -204,6 +205,7 @@ function  MusicList({musicList,audioStatus,audio}){
             
             <style jsx>{`
                 .music-list{
+                    flex:1;
                     padding:20px;
                     min-height:540px;
                 }
