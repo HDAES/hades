@@ -1,3 +1,4 @@
+import Link from 'next/link'
 export default ({hotlist}) =>{
     return (
         <div className="hot-list" id="hotlist">
@@ -10,7 +11,9 @@ export default ({hotlist}) =>{
           return (
             <div className="item" key={index}>
               <span>{index + 1}</span>
-              <a href={'/article?id='+item.cid}>{item.title}</a>
+              <Link href={{pathname: '/article',query: { id:item.cid}}}>
+                <a>{item.title}</a>
+              </Link>
             </div>
           );
         })}

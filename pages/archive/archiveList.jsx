@@ -19,7 +19,7 @@ export default ({archiveList}) =>{
                                     month.articles.map((article,a)=>{
                                         return <li key={a}>
                                             <span className="time">{article.d_create_time.slice(5,10)}</span>
-                                            <Link href={{pathname: '/article',query: { id:article.id}}}>
+                                            <Link href={{pathname: '/article',query: { id:article.c_id}}}>
                                                 <a>{article.title}</a>
                                             </Link>
                                         </li>

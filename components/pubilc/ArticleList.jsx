@@ -33,7 +33,7 @@ export default ({ articleList }) => {
                                     <span>{item.tag}</span>
                                 </div>
                             </div>
-                            <div onClick={()=>Router.push({pathname: '/article',query: { id:item.id}})} className="image">
+                            <div onClick={()=>Router.push({pathname: '/article',query: { id:item.c_id}})} className="image">
                                 <img className="art-image" src={item.image} />
                             </div>
                             <div className="description">{item.description}</div>
