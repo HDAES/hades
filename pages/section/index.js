@@ -19,9 +19,10 @@ function section({section,router}) {
         //获取二级分类id
         // setList([])
         axios.post(api.sectionList,{sid:sid,section:router.query.section}).then(res=>{
+            console.log(sid)
             if(res.status == 200){
                 setList(res.data.data.articleList)
-                //console.log(res.data.data.articleList)
+                
             }
         })  
     }

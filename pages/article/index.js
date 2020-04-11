@@ -15,7 +15,7 @@ function Article({article}){
                 </div>
                 <div style={{width:320}}>
                     <div className='left-fixed'>
-                        { article.details.length>0?<Nav article={article.details[0].context}/> :null}
+                        {/* { article.details.length>0?<Nav article={article.details[0].context}/> :null} */}
                         <Section sectionList={article.sectionList}/>
                         
                     </div>
