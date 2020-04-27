@@ -18,7 +18,7 @@ export default ({ articleList }) => {
                 articleList.slice(0, page * PAGE_SIZE).map((item, index) => {
                     return (
                         <div key={index} className="item">
-                            <div className="title" onClick={()=>Router.push({pathname: '/article',query: { id:item.id}})}>{item.title}</div>
+                            <div className="title" onClick={()=>Router.push({pathname: '/article',query: { id:item.c_id}})}>{item.title}</div>
                             <div className="info">
                                 <div className="create-time">
                                     <Icon style={{ fontSize: 24, color: 'var(--text-color)' }} type="calendar" />
